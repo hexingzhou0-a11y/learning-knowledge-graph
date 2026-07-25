@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>学习知识图谱 · 课程依赖查询</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>学习知识图谱</h1>
+      <p class="subtitle">输入一个知识点，看它的<strong>前置依赖</strong>（必须先学什么）与<strong>后续可学</strong>（学会后能学什么）</p>
+    </div>
+    <div class="searchwrap">
+      <input id="search" type="text" placeholder="搜索：一元一次方程 / 正负数 / 力 / 光合作用…" autocomplete="off" />
+      <div id="suggest" class="suggest" hidden></div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- 左：入口与列表 -->
+    <section class="panel left">
+      <div class="stagebar" id="stagebar">
+        <span class="stage-label">学习阶段</span>
+        <button class="stage" data-stage="k">学前</button>
+        <button class="stage" data-stage="p1">小学低</button>
+        <button class="stage" data-stage="p2">小学高</button>
+        <button class="stage on" data-stage="j">初中</button>
+      </div>
+      <div class="tabs" id="tabs">
+        <button data-tab="curated" class="active">⭐ 本阶段重点</button>
+        <button data-tab="browse">📚 按学科浏览</button>
+      </div>
+
+      <div id="curatedView" class="tabview"></div>
+      <div id="browseView" class="tabview" hidden></div>
+    </section>
+
+    <!-- 右：详情 / 图谱（四视图切换）-->
+    <section class="panel right">
+      <div class="viewtabs" id="viewtabs">
+        <button data-view="detail" class="active">📋 详情</button>
+        <button data-view="focused">🎯 聚焦</button>
+        <button data-view="path">🛤️ 路径</button>
+        <button data-view="overview">🗺️ 全景</button>
+      </div>
+      <div class="viewbody">
+        <div id="detail" class="detail viewpane active">
+          <div class="empty">
+            <div class="empty-icon">🧭</div>
+            <h2>开始查询</h2>
+            <p>在上方搜索框输入知识点，或点击左侧「初一重点」选择一个起点。</p>
+            <p class="tip">提示：这份图谱覆盖英美小学到初中（4–15 岁）的数学与科学，对初一数学高度通用。</p>
+          </div>
+        </div>
+        <div id="graph" class="viewpane" hidden>
+          <div id="subjFilter" class="subj-filter" hidden>
+            <span class="sf-label">学科：</span>
+            <button class="sf on" data-area="all">全部</button>
+            <button class="sf" data-area="math">数学</button>
+            <button class="sf" data-area="phys">物理科学</button>
+            <button class="sf" data-area="life">生物·地球</button>
+          </div>
+          <div id="legend" class="legend"></div>
+          <div id="viz" class="viz-canvas"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    数据来源：<a href="https://github.com/withmarbleapp/os-taxonomy" target="_blank" rel="noopener">Marble Skill Taxonomy (v1)</a> · 1590 知识点 / 3221 依赖关系 ·
+    本工具基于该开放数据制作，仅用于学习辅助。
+  </footer>
+
+  <!-- 数据（内嵌，可离线，双击打开即可用） -->
+  <script src="data/topics.js"></script>
+  <script src="data/dependencies.js"></script>
+  <script src="data/standards.js"></script>
+  <script src="data/glossary.zh.js"></script>
+  <script src="data/reasons.zh.js"></script>
+  <script src="data/extra.zh.js"></script>
+  <script src="data/names.zh.js"></script>
+  <script src="lib/vis-network.min.js"></script>
+  <script src="viz.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
